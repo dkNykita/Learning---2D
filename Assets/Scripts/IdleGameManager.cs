@@ -43,6 +43,7 @@ public class IdleGameManager : MonoBehaviour
     // Text for Click Button
     public Text clickText;
 
+
     
     
     
@@ -71,15 +72,31 @@ public class IdleGameManager : MonoBehaviour
         upgradeClick1Text.text = "Click Upgrade 1\n" + "Cost: " + clickUpgrade1Cost.ToString("F0") + " Coins\n" + "Power: +" + clickUpgrade1Power.ToString("F0") + " Click\n" + "Level: " + clickUpgrade1Level.ToString("F0");
         upgradeProduction1Text.text = "Production Upgrade 1\n" + "Cost: " + productionUpgrade1Cost.ToString("F0") + " Coins\n" + "Power: +" + productionUpgrade1Power.ToString("F0") + "Coins/s\n" + "Level: " + productionUpgrade1Level.ToString("F0");
         coins += (coinsPerSecond * Time.deltaTime);
+        if (coins < clickUpgrade1Cost)
+        {
+            upgradeClick1Text.color = Color.red;
+        }
+        else
+        {
+            upgradeClick1Text.color = Color.black;
+        }
+        if (coins < productionUpgrade1Cost)
+        {
+            upgradeProduction1Text.color = Color.red;
+        }
+        else
+        {
+            upgradeProduction1Text.color = Color.black;
+        }        
         if(coins < 0)
-            {
-                coins = 0;
-                coinsText.text = "Error: Negative Coins";
-            }
+        {
+            coins = 0;
+            coinsText.text = "Error: Negative Coins";
+        }
         if(coinsPerSecond < 0)
-            {
-                coinsPerSecondText.text = "Error: Negative Coins /s";
-            }        
+        {
+            coinsPerSecondText.text = "Error: Negative Coins /s";
+        }        
 
     }
 
@@ -87,6 +104,11 @@ public class IdleGameManager : MonoBehaviour
     public void Click()
     {
         coins += coinsClickValue;
+    }
+    
+    public void errorLowCoins()
+    {
+        
     }
 
     public void BuyClickUpgrade1()
@@ -98,6 +120,10 @@ public class IdleGameManager : MonoBehaviour
             clickUpgrade1Cost *= 1.07;             
             clickUpgrade1Generation = clickUpgrade1Level * clickUpgrade1Power;          
         }
+        else
+        {
+
+        }
     }
 
     public void BuyProductionUpgrade1()
@@ -108,6 +134,10 @@ public class IdleGameManager : MonoBehaviour
             productionUpgrade1Level += 1;
             productionUpgrade1Cost *= 1.14;
             productionUpgrade1Generation = productionUpgrade1Level * productionUpgrade1Power;
+        }
+        else
+        {
+
         }
     }
 
