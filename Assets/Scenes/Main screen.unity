@@ -651,7 +651,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2092977941}
         m_TargetAssemblyTypeName: IdleGameManager, Assembly-CSharp
-        m_MethodName: BuyClickUpgrade1
+        m_MethodName: BuyUpgradeClick2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -784,7 +784,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2092977941}
         m_TargetAssemblyTypeName: IdleGameManager, Assembly-CSharp
-        m_MethodName: BuyProductionUpgrade1
+        m_MethodName: BuyUpgradeProduction2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

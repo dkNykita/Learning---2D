@@ -186,6 +186,19 @@ public class IdleGameManager : MonoBehaviour
         }
     }
 
+    public void BuyUpgradeClick2()
+    {
+        if (true)
+        {
+            
+        }
+        else
+        {
+            
+        }
+    }
+
+
     public void BuyUpgradeProduction1()
     {
         if (coins >= upgradeProduction1Cost)
@@ -198,6 +211,17 @@ public class IdleGameManager : MonoBehaviour
         else
         {
 
+        }
+    }
+    public void BuyUpgradeProduction2()
+    {
+        if (true)
+        {
+            
+        }
+        else
+        {
+            
         }
     }
 
