@@ -1260,7 +1260,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Click Upgrade 2
 
-    Cost: 100 coins
+    Cost: 100 Coins
 
     Power: +10 Click
 
@@ -1477,9 +1477,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Click Upgrade 2
+  m_Text: 'Production Upgrade 2
 
-    Cost: 250 coins
+    Cost: 250 Coins
 
     Power: +10 Coins/s
 

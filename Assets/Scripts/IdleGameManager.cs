@@ -103,8 +103,10 @@ public class IdleGameManager : MonoBehaviour
         clickText.text = "Click\n+" + coinsClickValue + " Coins";
         coinsText.text = "Coins: " + coins.ToString("F0");
         coinsPerSecondText.text = coinsPerSecond.ToString("F0") + " Coins /s";
-        upgradeClick1Text.text = "Click Upgrade 1\n" + "Cost: " + upgradeClick1Cost.ToString("F0") + " Coins\n" + "Power: +" + upgradeClick1Power.ToString("F0") + " Click\n" + "Level: " + upgradeClick1Level.ToString("F0");
-        upgradeProduction1Text.text = "Production Upgrade 1\n" + "Cost: " + upgradeProduction1Cost.ToString("F0") + " Coins\n" + "Power: +" + upgradeProduction1Power.ToString("F0") + "Coins/s\n" + "Level: " + upgradeProduction1Level.ToString("F0");
+        upgradeClick1Text.text = "Click Upgrade 1\n" + "Cost: " + upgradeClick1Cost.ToString("F0") + " Coins\n" + "Power: +" + upgradeClick1Power.ToString("F0") + " Clicks\n" + "Level: " + upgradeClick1Level.ToString("F0");
+        upgradeClick2Text.text = "Click Upgrade 2\n" + "Cost: " + upgradeClick2Cost.ToString("F0") + " Coins\n" + "Power: +" + upgradeClick2Power.ToString("F0") + " Clicks\n" + "Level: " + upgradeClick2Level.ToString("F0");
+        upgradeProduction1Text.text = "Production Upgrade 1\n" + "Cost: " + upgradeProduction1Cost.ToString("F0") + " Coins\n" + "Power: +" + upgradeProduction1Power.ToString("F0") + " Coins/s\n" + "Level: " + upgradeProduction1Level.ToString("F0");
+        upgradeProduction2Text.text = "Production Upgrade 2\n" + "Cost: " + upgradeProduction2Cost.ToString("F0") + " Coins\n" + "Power: +" + upgradeProduction2Power.ToString("F0") + " Coins/s\n" + "Level: " + upgradeProduction2Level.ToString("F0");
         
         // Errors
 
@@ -146,7 +148,7 @@ public class IdleGameManager : MonoBehaviour
             upgradeProduction2Text.color = Color.black;
         }
 
-        /// Weird errors        
+        /// Other errors        
 
         if(coins < 0)
         {
@@ -160,16 +162,13 @@ public class IdleGameManager : MonoBehaviour
 
     }
 
-    // Buttons
+    // Functions
+
+    /// Buttons
     public void Click()
     {
         coins += coinsClickValue;
-    }
-    
-    public void errorLowCoins()
-    {
-        
-    }
+    }    
 
     public void BuyUpgradeClick1()
     {
@@ -198,7 +197,6 @@ public class IdleGameManager : MonoBehaviour
         }
     }
 
-
     public void BuyUpgradeProduction1()
     {
         if (coins >= upgradeProduction1Cost)
@@ -223,6 +221,12 @@ public class IdleGameManager : MonoBehaviour
         {
             
         }
+    }
+    
+    /// Other functions
+    public void errorLowCoins()
+    {
+        
     }
 
 }
