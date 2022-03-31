@@ -8,8 +8,12 @@ using UnityEngine.UI;
 public class IdleGameManager : MonoBehaviour
 {
     
+    /// Base
+
     // Text for coin counter
     public Text coinsText;
+    // Text for Click Button
+    public Text clickText;
     // Owned coins value
     public double coins;
     // How much you get per click on game start
@@ -18,30 +22,57 @@ public class IdleGameManager : MonoBehaviour
     public double coinsClickValue;
     // Text for CPS
     public Text coinsPerSecondText;
+    // Total CPS value      
+    public double coinsPerSecond;
+
+    /// Click Upgrade 1
+
     // Text for Click Upgrade 1
     public Text upgradeClick1Text;
+    // Click Upgrade 1 cost
+    public double upgradeClick1Cost;
+    // Click Upgrade 1 power (multiplier)
+    public int upgradeClick1Power;
+    // Click Upgrade 1 level
+    public int upgradeClick1Level;
+    // Click Upgrade 1 total coin generation
+    public double upgradeClick1Generation;
+
+
+    /// Upgrade Click 2
+    public Text upgradeClick2Text;
+    public double upgradeClick2Cost;
+    public int upgradeClick2Power;
+    public int upgradeClick2Level;
+    public double upgradeClick2Generation;
+
+    /// Production Upgrade 1
+
     // Text for Production Upgrade 1
     public Text upgradeProduction1Text;
-    // Total CPS value    
-    public double coinsPerSecond;
-    // Click Upgrade 1 cost
-    public double clickUpgrade1Cost;
-    // Click Upgrade 1 level
-    public int clickUpgrade1Level;
-    // Click Upgrade 1 power (multiplier)
-    public int clickUpgrade1Power;
     // Production Upgrade 1 cost
-    public double productionUpgrade1Cost;
-    // Production Upgrade 1 level
-    public int productionUpgrade1Level;
+    public double upgradeProduction1Cost;
     // Production Upgrade 1 power (multiplier)
-    public int productionUpgrade1Power;
+    public int upgradeProduction1Power;
+    // Production Upgrade 1 level
+    public int upgradeProduction1Level;
     // Production Upgrade 1 total coin generation
-    public double productionUpgrade1Generation;
-    // Click Upgrade 1 total coin generation
-    public double clickUpgrade1Generation;
-    // Text for Click Button
-    public Text clickText;
+    public double upgradeProduction1Generation;
+
+    /// Production Upgrade 2
+
+    public Text upgradeProduction2Text;
+    public double upgradeProduction2Cost;
+    public int upgradeProduction2Power;
+    public int upgradeProduction2Level;
+    public double upgradeProduction2Generation;
+    
+    /// Other
+
+
+
+
+
 
 
     
@@ -53,26 +84,33 @@ public class IdleGameManager : MonoBehaviour
     {
         coins = 10;
         coinsClickValueInitial = 1;
-        clickUpgrade1Cost = 10;
-        clickUpgrade1Level = 0;
-        clickUpgrade1Power = 1;
-        productionUpgrade1Cost = 25;
-        productionUpgrade1Level = 0;
-        productionUpgrade1Power = 1;
+        upgradeClick1Cost = 10;
+        upgradeClick1Level = 0;
+        upgradeClick1Power = 1;
+        upgradeProduction1Cost = 25;
+        upgradeProduction1Level = 0;
+        upgradeProduction1Power = 1;
     }
 
     // Update is called once per frame
     public void Update()
     {
-        coinsPerSecond = productionUpgrade1Generation;
-        coinsClickValue = coinsClickValueInitial + clickUpgrade1Generation;
+        // Values
+        coinsPerSecond = upgradeProduction1Generation;
+        coinsClickValue = coinsClickValueInitial + upgradeClick1Generation;
+        coins += (coinsPerSecond * Time.deltaTime);
+        // Text
         clickText.text = "Click\n+" + coinsClickValue + " Coins";
         coinsText.text = "Coins: " + coins.ToString("F0");
         coinsPerSecondText.text = coinsPerSecond.ToString("F0") + " Coins /s";
-        upgradeClick1Text.text = "Click Upgrade 1\n" + "Cost: " + clickUpgrade1Cost.ToString("F0") + " Coins\n" + "Power: +" + clickUpgrade1Power.ToString("F0") + " Click\n" + "Level: " + clickUpgrade1Level.ToString("F0");
-        upgradeProduction1Text.text = "Production Upgrade 1\n" + "Cost: " + productionUpgrade1Cost.ToString("F0") + " Coins\n" + "Power: +" + productionUpgrade1Power.ToString("F0") + "Coins/s\n" + "Level: " + productionUpgrade1Level.ToString("F0");
-        coins += (coinsPerSecond * Time.deltaTime);
-        if (coins < clickUpgrade1Cost)
+        upgradeClick1Text.text = "Click Upgrade 1\n" + "Cost: " + upgradeClick1Cost.ToString("F0") + " Coins\n" + "Power: +" + upgradeClick1Power.ToString("F0") + " Click\n" + "Level: " + upgradeClick1Level.ToString("F0");
+        upgradeProduction1Text.text = "Production Upgrade 1\n" + "Cost: " + upgradeProduction1Cost.ToString("F0") + " Coins\n" + "Power: +" + upgradeProduction1Power.ToString("F0") + "Coins/s\n" + "Level: " + upgradeProduction1Level.ToString("F0");
+        
+        // Errors
+
+        /// Click Upgrade Errors
+
+        if (coins < upgradeClick1Cost)
         {
             upgradeClick1Text.color = Color.red;
         }
@@ -80,14 +118,36 @@ public class IdleGameManager : MonoBehaviour
         {
             upgradeClick1Text.color = Color.black;
         }
-        if (coins < productionUpgrade1Cost)
+        if (coins < upgradeClick2Cost)
+        {
+            upgradeClick2Text.color = Color.red;
+        }
+        else
+        {
+            upgradeClick2Text.color = Color.black;
+        }
+
+        /// Production Upgrade Errors
+
+        if (coins < upgradeProduction1Cost)
         {
             upgradeProduction1Text.color = Color.red;
         }
         else
         {
             upgradeProduction1Text.color = Color.black;
-        }        
+        }  
+        if (coins < upgradeProduction2Cost)
+        {
+            upgradeProduction2Text.color = Color.red;
+        }
+        else
+        {
+            upgradeProduction2Text.color = Color.black;
+        }
+
+        /// Weird errors        
+
         if(coins < 0)
         {
             coins = 0;
@@ -111,14 +171,14 @@ public class IdleGameManager : MonoBehaviour
         
     }
 
-    public void BuyClickUpgrade1()
+    public void BuyUpgradeClick1()
     {
-        if (coins >= clickUpgrade1Cost)
+        if (coins >= upgradeClick1Cost)
         {
-            coins -= clickUpgrade1Cost;
-            clickUpgrade1Level += 1;
-            clickUpgrade1Cost *= 1.07;             
-            clickUpgrade1Generation = clickUpgrade1Level * clickUpgrade1Power;          
+            coins -= upgradeClick1Cost;
+            upgradeClick1Level += 1;
+            upgradeClick1Cost *= 1.07;             
+            upgradeClick1Generation = upgradeClick1Level * upgradeClick1Power;          
         }
         else
         {
@@ -126,14 +186,14 @@ public class IdleGameManager : MonoBehaviour
         }
     }
 
-    public void BuyProductionUpgrade1()
+    public void BuyUpgradeProduction1()
     {
-        if (coins >= productionUpgrade1Cost)
+        if (coins >= upgradeProduction1Cost)
         {
-            coins -= productionUpgrade1Cost;
-            productionUpgrade1Level += 1;
-            productionUpgrade1Cost *= 1.14;
-            productionUpgrade1Generation = productionUpgrade1Level * productionUpgrade1Power;
+            coins -= upgradeProduction1Cost;
+            upgradeProduction1Level += 1;
+            upgradeProduction1Cost *= 1.14;
+            upgradeProduction1Generation = upgradeProduction1Level * upgradeProduction1Power;
         }
         else
         {
