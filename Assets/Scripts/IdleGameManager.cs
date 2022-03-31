@@ -31,8 +31,10 @@ public class IdleGameManager : MonoBehaviour
     public Text upgradeClick1Text;
     // Click Upgrade 1 cost
     public double upgradeClick1Cost;
-    // Click Upgrade 1 power (multiplier)
+    // Click Upgrade 1 power (how much it does)
     public int upgradeClick1Power;
+    // Click Upgrade 1 Prestige 1 Power (P1 multiplier)
+    public int upgradeClick1Prestige1Power;
     // Click Upgrade 1 level
     public int upgradeClick1Level;
     // Click Upgrade 1 total coin generation
@@ -43,6 +45,7 @@ public class IdleGameManager : MonoBehaviour
     public Text upgradeClick2Text;
     public double upgradeClick2Cost;
     public int upgradeClick2Power;
+    public int upgradeClick2Prestige1Power;
     public int upgradeClick2Level;
     public double upgradeClick2Generation;
 
@@ -50,13 +53,10 @@ public class IdleGameManager : MonoBehaviour
 
     // Text for Production Upgrade 1
     public Text upgradeProduction1Text;
-    // Production Upgrade 1 cost
     public double upgradeProduction1Cost;
-    // Production Upgrade 1 power (multiplier)
     public int upgradeProduction1Power;
-    // Production Upgrade 1 level
+    public int upgradeProduction1Prestige1Power;
     public int upgradeProduction1Level;
-    // Production Upgrade 1 total coin generation
     public double upgradeProduction1Generation;
 
     /// Production Upgrade 2
@@ -64,6 +64,7 @@ public class IdleGameManager : MonoBehaviour
     public Text upgradeProduction2Text;
     public double upgradeProduction2Cost;
     public int upgradeProduction2Power;
+    public int upgradeProduction2Prestige1Power;
     public int upgradeProduction2Level;
     public double upgradeProduction2Generation;
     
@@ -82,22 +83,34 @@ public class IdleGameManager : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
+        // Core
         coins = 10;
         coinsClickValueInitial = 1;
+
+        // Upgrades
+
+        /// Click Upgrades
         upgradeClick1Cost = 10;
-        upgradeClick1Level = 0;
         upgradeClick1Power = 1;
+        upgradeClick1Prestige1Power = 1;
+        upgradeClick2Cost = 100;
+        upgradeClick2Power = 10;
+        upgradeClick2Prestige1Power = 1;
+        /// Production Upgrades
         upgradeProduction1Cost = 25;
-        upgradeProduction1Level = 0;
         upgradeProduction1Power = 1;
+        upgradeProduction1Prestige1Power = 1;
+        upgradeProduction2Cost = 250;
+        upgradeProduction2Power = 10;
+        upgradeProduction2Prestige1Power = 1;
     }
 
     // Update is called once per frame
     public void Update()
     {
         // Values
-        coinsPerSecond = upgradeProduction1Generation;
-        coinsClickValue = coinsClickValueInitial + upgradeClick1Generation;
+        coinsPerSecond = upgradeProduction1Generation+upgradeProduction2Generation;
+        coinsClickValue = coinsClickValueInitial + upgradeClick1Generation + upgradeClick2Generation;
         coins += (coinsPerSecond * Time.deltaTime);
         // Text
         clickText.text = "Click\n+" + coinsClickValue + " Coins";
@@ -177,7 +190,7 @@ public class IdleGameManager : MonoBehaviour
             coins -= upgradeClick1Cost;
             upgradeClick1Level += 1;
             upgradeClick1Cost *= 1.07;             
-            upgradeClick1Generation = upgradeClick1Level * upgradeClick1Power;          
+            upgradeClick1Generation = upgradeClick1Level * (upgradeClick1Power * upgradeClick1Prestige1Power);          
         }
         else
         {
@@ -187,9 +200,12 @@ public class IdleGameManager : MonoBehaviour
 
     public void BuyUpgradeClick2()
     {
-        if (true)
+        if (coins>= upgradeClick2Cost)
         {
-            
+            coins -= upgradeClick2Cost;
+            upgradeClick2Level += 1;
+            upgradeClick2Cost *= 1.09;
+            upgradeClick2Generation = upgradeClick2Level * (upgradeClick2Power * upgradeClick2Prestige1Power);
         }
         else
         {
@@ -204,7 +220,7 @@ public class IdleGameManager : MonoBehaviour
             coins -= upgradeProduction1Cost;
             upgradeProduction1Level += 1;
             upgradeProduction1Cost *= 1.14;
-            upgradeProduction1Generation = upgradeProduction1Level * upgradeProduction1Power;
+            upgradeProduction1Generation = upgradeProduction1Level * (upgradeProduction1Power * upgradeProduction1Prestige1Power);
         }
         else
         {
@@ -213,9 +229,12 @@ public class IdleGameManager : MonoBehaviour
     }
     public void BuyUpgradeProduction2()
     {
-        if (true)
+        if (coins >= upgradeProduction2Cost)
         {
-            
+            coins -= upgradeProduction2Cost;
+            upgradeProduction2Level += 1;
+            upgradeProduction2Cost *= 1.17;
+            upgradeProduction2Generation = upgradeProduction2Level * (upgradeProduction2Power * upgradeProduction2Prestige1Power);
         }
         else
         {
